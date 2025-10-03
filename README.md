@@ -1,15 +1,17 @@
 # TriMediQ: A Triplet-Structured Approach for Interactive Medical Question Answering
 
 ## 🚀 Overview
-TriMediQ is a framework designed for interactive medical QA.  
-It introduces a triplet-structured knowledge incorporation module to enhance reasoning in large language models (LLMs).  
+TriMediQ is an approach designed for interactive medical QA.  
+It addresses the limitation of LLMs in interactive settings where clinical facts are scattered across dialogue turns without explicit connections.  
 
-The framework consists of two stages:
-1. **Projection Training**: Fine-tuning a projection module that encodes UMLS-style triplets via a graph encoder + projector and injects them into a frozen expert LLM (open source) through prefix tuning.
+The approach introduces a **triplet-structured knowledge graph (KG)** that incrementally converts patient responses into UMLS-style triplets and integrates them into the expert LLM via a projection module.  
+
+### TriMediQ operates in two stages:
+1. **Projection Training**: Fine-tuning a projection module that encodes UMLS-style triplets via a graph encoder + projector and injects them into a frozen expert LLM through prefix tuning.
 2. **Interactive QA**: Using the trained projection to support inference in multi-turn patient–expert interactions.
 
 ## 🧩 Framework
-![TriMediQ Framework](image/Medical_QA.pdf)
+![TriMediQ Framework](image/TriMediQ.png)
 
 ## 🔧 Installation
 
@@ -18,16 +20,6 @@ Create a new conda environment with all dependencies (requires GPU for PyTorch +
 conda env create -f environment.yml
 conda activate TriMediQ
 ```
-
-## 📂 Project Structure
-- `projection_train.py`: Training the projection module (graph encoder + projector).
-- `TriMediQ_benchmark.py`: Main script for running benchmarks.
-- `patient.py`: Defines the `Patient` class simulating patient behaviour.
-- `expert.py`: Defines the `Expert` classes for different expert strategies.
-- `args.py`: Handles command-line arguments and configuration.
-- `utils/`: Helper modules for triplet extraction, graph construction, and model handling.
-- `data/`: Development and training datasets in JSONL format.
-
 
 ## ▶️ Running the Benchmark
 Example run:
