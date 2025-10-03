@@ -1,3 +1,0 @@
-mykey = {
-    "TriMediQ": "your password",
-}
