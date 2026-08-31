@@ -1,27 +1,52 @@
-# GraphMed-LT
+<div align="center">
+
+# 🩺 GraphMed-LT
 
 **Patient-Specific Graph Memory with Latent Clinical Thought Refinement for Multi-Turn Medical Conversations**
 
-## Overview
+[![arXiv](https://img.shields.io/badge/arXiv-2510.03536-b31b1b.svg)](https://arxiv.org/abs/2510.03536)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+## 📰 News
+
+- **[2026-08]** 🎉 GraphMed-LT is accepted to **EMNLP 2026**!
+
+## 📖 Overview
 
 We propose GraphMed-LT, a patient-specific graph memory approach with latent clinical thought refinement for multi-turn medical conversations. GraphMed-LT extracts patient-specific clinical triplets from patient responses, retrieves relevant knowledge triplets, and organises them into an incrementally updated graph memory. The graph memory is projected into graph-conditioned evidence tokens and refined inside a trainable doctor agent through hidden-state feedback, enabling the agent to update its internal clinical context before asking follow-up questions or producing the final answer.
 
 <p align="center">
-  <img src="image/GraphMed-LT.png">
+  <img src="image/GraphMed-LT.png" alt="GraphMed-LT framework" width="100%">
 </p>
 
-## Method
+## ✨ Highlights
 
-GraphMed-LT consists of a patient agent, a triplet agent, a patient-specific graph memory module, and a trainable doctor agent. The patient agent returns responses grounded in the complete patient record. The triplet agent extracts patient-specific triplets from patient responses and retrieves the top-3 relevant knowledge triplets from an external triplet corpus. The graph memory is initialised as `G_0` using triplets extracted from the initial patient description `p_0` and is updated across turns by adding clinical entities and relation-labelled edges. Source-aware edge types distinguish patient-observed triplets from retrieved background knowledge. The graph memory is encoded with a GAT, projected into graph-conditioned evidence tokens, and integrated into the doctor agent through latent clinical thought refinement.
+- **Patient-specific graph memory** built from clinical triplets and incrementally updated across dialogue turns
+- **Source-aware edge types** that distinguish patient-observed triplets from retrieved background knowledge
+- **Latent clinical thought refinement**: graph-conditioned evidence tokens are refined inside a trainable doctor agent through hidden-state feedback
+- **Multi-turn clinical reasoning**: the doctor agent updates its internal clinical context before asking follow-up questions or producing the final answer
 
-## Installation
+## 🧩 Method at a Glance
+
+GraphMed-LT consists of four components:
+
+| Component | Responsibility |
+| --- | --- |
+| `Patient Agent` | Returns responses grounded in the complete patient record |
+| `Triplet Agent` | Extracts patient-specific triplets from patient responses and retrieves the top-3 relevant knowledge triplets from an external triplet corpus |
+| `Graph Memory` | Initialised as `G_0` from triplets extracted from the initial patient description `p_0`, and updated across turns by adding clinical entities and relation-labelled edges; source-aware edge types separate patient-observed evidence from retrieved background knowledge |
+| `Doctor Agent (trainable)` | Receives the graph memory encoded with a GAT and projected into graph-conditioned evidence tokens, and refines its latent clinical context through latent clinical thought refinement before producing follow-up questions or the final answer |
+
+## ⚙️ Installation
 
 ```bash
 conda env create -f environment.yml
 conda activate GraphMed-LT
 ```
 
-## Training
+## 🏋️ Training
 
 The main training entry point is `projection_train.py`.
 
@@ -45,10 +70,11 @@ python projection_train.py \
   --epochs 5
 ```
 
-The code expects the external triplet corpus to be provided locally and does not include PrimeKG triples in this repository. The BiCA encoder defaults to `bisectgroup/BiCA-base` and can be changed with `GRAPHMED_BICA_MODEL`.
+> **Notes**
+> - The code expects the external triplet corpus to be provided locally and does not include PrimeKG triples in this repository.
+> - The BiCA encoder defaults to `bisectgroup/BiCA-base` and can be changed with `GRAPHMED_BICA_MODEL`.
 
-
-## Benchmark
+## 📊 Benchmark
 
 ```bash
 python GraphMedLT_benchmark.py \
@@ -62,6 +88,21 @@ python GraphMedLT_benchmark.py \
   --max_questions 10
 ```
 
-## License
+## 📎 Citation
+
+If you find GraphMed-LT useful in your research, please give this repository a ⭐ and cite our paper:
+
+```bibtex
+@article{meng2026graphmed,
+  title={GraphMed-LT: Patient-Specific Graph Memory with Latent Clinical Thought Refinement for Multi-Turn Medical Conversations},
+  author={Meng, Zhaohan and Meng, Zaiqiao and Liu, Siwei and Xu, Hao and Yuan, Ke and Ounis, Iadh},
+  journal={arXiv preprint arXiv:2510.03536},
+  year={2026}
+}
+```
+
+*The BibTeX will be updated to the EMNLP 2026 version once the proceedings are published.*
+
+## 📄 License
 
 This repository is released under the MIT License.
